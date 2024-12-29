@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>シフト表管理アプリ</title>
+</head>
+<body>
+	<h1>メニュー</h1>
+	<p th:text="${'ユーザー：'+ employee.fname + employee.lname}"></p>
+	<ul>
+		<li><a>人事情報</a></li>
+		<li><a>シフト編集</a></li>
+		<li><a>シフト表示</a></li>
+		<li><a>シフト申請</a></li>
+	</ul>
+</body>
+</html>

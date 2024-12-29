@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>シフト表管理アプリ</title>
+</head>
+<body>
+	<h1>ログイン画面</h1>
+	<form th:action="@{/login}" method="post" th:object="${loginForm}">
+		<div>
+			従業員番号：<input type="text" th:field="*{perCd}">
+			<br>
+			パスワード：<input type="password" th:field="*{password}">
+			<br>
+			<input type="submit" value="ログイン">
+		</div>
+	</form>
+<!--	<ul th:if="${#fields.hasError('*')}">-->
+<!--		<li th:each="err:${#fields.errors('*')}" th:text="${err}"></li>-->
+<!--	</ul>-->
+</body>
+</html>
