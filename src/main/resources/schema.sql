@@ -1,121 +1,66 @@
+DROP TABLE IF EXISTS t_dayoffs;
+DROP TABLE IF EXISTS t_shifts;
+DROP TABLE IF EXISTS m_dayoff_types;
+DROP TABLE IF EXISTS m_employees;
+DROP TABLE IF EXISTS m_stores;
+DROP TABLE IF EXISTS m_departments;
+DROP TABLE IF EXISTS m_roles;
 
--- Globals
--- ---
-
--- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
--- SET FOREIGN_KEY_CHECKS=0;
-
--- ---
--- Table 'employees'
--- 従業員マスタ
--- ---
-
-DROP TABLE IF EXISTS employees;
-		
-CREATE TABLE employees (
-  id serial PRIMARY KEY,
-  per_cd VARCHAR NOT NULL ,
-  role_id INT NOT NULL,
-  shop_cd VARCHAR NOT NULL,
-  department_id INT NOT NULL ,
-  fname VARCHAR ,
-  lname VARCHAR ,
-  birth_dt VARCHAR ,
-  password VARCHAR ,
-  work_per_week INT  ,
-  work_hours INT  ,
-  rest_flg VARCHAR(1)  DEFAULT '0' ,
-  del_flg VARCHAR(1)  DEFAULT '0' 
-) ;
-
--- ---
--- Table 'roles'
--- 権限マスタ
--- ---
-
-DROP TABLE IF EXISTS roles;
-		
-CREATE TABLE roles (
-  id serial PRIMARY KEY,
-  name VARCHAR
+CREATE TABLE m_roles (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR NOT NULL
 );
 
--- ---
--- Table 'departments'
--- 部門マスタ
--- ---
+CREATE TABLE m_departments (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR NOT NULL
+);
 
-DROP TABLE IF EXISTS departments;
-		
-CREATE TABLE departments (
-  id serial PRIMARY KEY,
-  name VARCHAR
-) ;
+CREATE TABLE m_stores (
+    store_code VARCHAR PRIMARY KEY,
+    name VARCHAR UNIQUE NOT NULL,
+    open TIME NOT NULL,
+    close TIME NOT NULL
+);
 
--- ---
--- Table 'dayoffs'
--- 休日トラン
--- ---
+CREATE TABLE m_employees (
+    employee_code VARCHAR PRIMARY KEY,
+    role_id INTEGER NOT NULL,
+    store_code VARCHAR NOT NULL,
+    department_id INTEGER NOT NULL,
+    first_name VARCHAR NOT NULL,
+    last_name VARCHAR NOT NULL,
+    date_of_birth VARCHAR NOT NULL,
+    password VARCHAR NOT NULL,
+    work_per_week INTEGER NOT NULL,
+    work_per_day INTEGER NOT NULL,
+    deleted_at TIMESTAMP ,
+    FOREIGN KEY (role_id) REFERENCES m_roles (id),
+    FOREIGN KEY (store_code) REFERENCES m_stores (store_code),
+    FOREIGN KEY (department_id) REFERENCES m_departments (id)
+);
 
-DROP TABLE IF EXISTS dayoffs;
-		
-CREATE TABLE dayoffs (
-  id serial PRIMARY KEY,
-  employee_id INTEGER ,
-  type_id INTEGER ,
-  date DATE
-) ;
+CREATE TABLE m_dayoff_types (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR UNIQUE NOT NULL
+);
 
--- ---
--- Table 'dayoff_types'
--- 休日タイプマスタ
--- ---
+CREATE TABLE t_shifts (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    employee_code VARCHAR NOT NULL,
+    department_id INTEGER NOT NULL,
+    "date" DATE NOT NULL,
+    "start" TIME NOT NULL,
+    "end" TIME NOT NULL,
+    FOREIGN KEY (employee_code) REFERENCES m_employees (employee_code),
+    FOREIGN KEY (department_id) REFERENCES m_departments (id)
+);
 
-DROP TABLE IF EXISTS dayoff_types;
-		
-CREATE TABLE dayoff_types (
-  id serial PRIMARY KEY,
-  name VARCHAR 
-) ;
-
--- ---
--- Table 'shifts'
--- シフトトラン
--- ---
-
-DROP TABLE IF EXISTS shifts;
-		
-CREATE TABLE shifts (
-  id serial PRIMARY KEY,
-  employee_id INT ,
-  department_id INT ,
-  date DATE ,
-  start_time TIME,
-  end_time TIME
-) ;
-
--- ---
--- Table 'shops'
--- 店舗マスタ
--- ---
-
-DROP TABLE IF EXISTS shops;
-		
-CREATE TABLE shops (
-  shop_cd VARCHAR PRIMARY KEY,
-  name VARCHAR,
-  open_time TIME ,
-  close_time TIME 
-) ;
-
--- ---
--- Foreign Keys 
--- ---
-
-ALTER TABLE employees ADD FOREIGN KEY (role_id) REFERENCES roles (id);
-ALTER TABLE employees ADD FOREIGN KEY (shop_cd) REFERENCES shops (shop_cd);
-ALTER TABLE employees ADD FOREIGN KEY (department_id) REFERENCES departments (id);
-ALTER TABLE dayoffs ADD FOREIGN KEY (employee_id) REFERENCES employees (id);
-ALTER TABLE dayoffs ADD FOREIGN KEY (type_id) REFERENCES dayoff_types (id);
-ALTER TABLE shifts ADD FOREIGN KEY (employee_id) REFERENCES employees (id);
-ALTER TABLE shifts ADD FOREIGN KEY (department_id) REFERENCES departments (id);
+CREATE TABLE t_dayoffs (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    employee_code VARCHAR NOT NULL,
+    type_id INTEGER NOT NULL,
+    "date" DATE NOT NULL,
+    FOREIGN KEY (employee_code) REFERENCES m_employees (employee_code),
+    FOREIGN KEY (type_id) REFERENCES m_dayoff_types (id)
+);

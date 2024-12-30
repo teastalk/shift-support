@@ -8,6 +8,6 @@ import com.shift.support.entity.Employee;
 @Mapper
 public interface EmployeeMapper {
 
-	@Select("SELECT * FROM employees WHERE per_cd = #{perCd} AND (birth_dt = #{birthDt} OR password = #{password})")
-	Employee getEmployeeByPerCdandBirthDtOrPassword(String perCd, String birthDt, String password);
+	@Select("SELECT * FROM m_employees WHERE employee_code = #{employeeCode} AND (date_of_birth = #{dateOfBirth} OR password = #{password})")
+	Employee getEmployeeByPerCdandBirthDtOrPassword(String employeeCode, String dateOfBirth, String password);
 }

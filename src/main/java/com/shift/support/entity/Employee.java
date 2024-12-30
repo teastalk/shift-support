@@ -1,19 +1,20 @@
 package com.shift.support.entity;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
 public class Employee {
-	private String perCd;
+	private String employeeCode;
 	private int roleId;
-	private String shopCd;
+	private String storeCode;
 	private int departmentId;
-	private String fname;
-	private String lname;
-	private String birthDt;
+	private String firstName;
+	private String lastName;
+	private String dateOfBirth;
 	private String password;
 	private int workPerWeek;
-	private int workHours;
-	private String restFlg;
-	private String delFlg; 
+	private int workPerDay;
+	private Date deleteAt; 
 }
