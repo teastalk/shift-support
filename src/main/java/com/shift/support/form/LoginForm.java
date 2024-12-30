@@ -2,16 +2,15 @@ package com.shift.support.form;
 
 
 
-import jakarta.validation.constraints.NotNull;
-
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
 public class LoginForm {
 	
-	@NotNull(message = "従業員番号を入力してください。")
+	@NotBlank(message = "従業員番号を入力してください。")
 	private String perCd;
 	
-	@NotNull(message = "パスワードを入力してください。")
+	@NotBlank(message = "パスワードを入力してください。")
 	private String password;
 }

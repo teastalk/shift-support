@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.shift.support.entity.Employee;
 import com.shift.support.form.LoginForm;
 import com.shift.support.mapper.EmployeeMapper;
 
@@ -43,7 +44,17 @@ public class RequestParamController {
 		String perCd = form.getPerCd();
 		String birthDt= form.getPassword();
 		String password = form.getPassword();
-		model.addAttribute("employee",employeeMapper.getEmployeeByPerCdandBirthDtOrPassword(perCd, birthDt, password));
+		
+		// ログインユーザーを取得
+		Employee loginUser = employeeMapper.getEmployeeByPerCdandBirthDtOrPassword(perCd, birthDt, password);
+		
+		// ログイン失敗
+		if(loginUser == null) {
+			return "index";
+		}
+		
+		
+		model.addAttribute("employee",loginUser);
 		
 		return "menu";
 	}
