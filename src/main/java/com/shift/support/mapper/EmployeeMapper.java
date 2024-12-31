@@ -1,5 +1,6 @@
 package com.shift.support.mapper;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -25,4 +26,9 @@ public interface EmployeeMapper {
 		@Result(property = "deleteAt" , column = "delete_at")
 	})
 	Employee getEmployeeByPerCdandBirthDtOrPassword(String employeeCode, String dateOfBirth, String password);
+	
+	//登録
+	@Insert
+	("INSERT INTO m_employees values(#{employeeCode},#{roleId},#{storeCode},#{departmentId},#{firstName},#{lastName},#{dateOfBirth},#{password},#{workPerWeek},#{workPerDay},null)")
+	void create(String employeeCode, int roleId, String storeCode, int departmentId, String firstName, String lastName, String dateOfBirth, String password, int workPerWeek, int workPerDay);
 }

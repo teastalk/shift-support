@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout}">
+<head>
+<meta charset="UTF-8">
+<title>シフト表管理アプリ|人事登録画面</title>
+</head>
+	<div layout:fragment="content">
+		<h2>人事登録画面</h2>
+			<form th:action="@{/employee/store}" method="post" th:object="${storeForm}">
+				<ul>
+					<li>
+						氏名：
+						<input type="text" th:field="*{firstName}" placeholder="苗字を入力してください">
+						<input type="text" th:field="*{lastName}" placeholder="名前を入力してください">
+					</li>
+					<li>
+						パスワード：
+						<input type="password" th:field="*{password}" placeholder="パスワードを入力してください">
+					</li>
+<!--					<li>-->
+<!--						誕生日：-->
+<!--						<input type="password" th:field="*{password}" placeholder="パスワードを入力してください">-->
+<!--					</li>-->
+					<li>
+						役職：
+						<select name="role">
+							<option value="-1" selected>役職を選択してください</option>
+							<th:block th:each="role : ${roles}">							
+								<option th:value="${role.id}" th:text="${role.name}"></option>
+							</th:block>
+						</select>		
+					</li>
+					<li>
+						部門：
+						<select name="department">
+							<option value="-1" selected>部門を選択してください</option>
+							<th:block th:each="department : ${departments}">
+								<option th:value="${department.id}" th:text="${department.name}"></option>
+							</th:block>
+						</select>
+					</li>
+					<li>
+						店舗：
+						<select name="store">
+							<option value="" selected>店舗を選択してください</option>
+							<th:block th:each="store : ${stores}">
+								<option th:value="${store.storeCode}" th:text="${store.name}"></option>
+							</th:block>
+						</select>
+					</li>
+					<li>
+						希望勤務日数：
+						<input type="number" th:field="*{workPerWeek}">
+					</li>
+					<li>
+						希望勤務時間：
+						<input type="number" th:field="*{workPerDay}">
+					</li>
+					
+				</ul>
+				
+				
+				
+				<ul th:if="${#fields.hasErrors('*')}">
+					<li th:each="err:${#fields.errors('*')}" th:text="${err}"></li>
+				</ul>
+				
+				<input type="submit" value="登録">
+			</form>
+		</div>
+	</div>
+</body>
+</html>
