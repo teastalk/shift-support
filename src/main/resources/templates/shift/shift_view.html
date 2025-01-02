@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>シフト表管理アプリ</title>
+</head>
+
+<body>
+	<h1>シフト一覧</h1>
+	<p th:text="${'ユーザー：'+employee}"></p>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>従業員</th>
+				<th th:each="day : ${days}" th:text="${day}"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="employee : ${employees}">
+				<td th:text="${employee.firstName}"></td>
+				<td th:each="day : ${days}">
+					 <span th:if="${employee.shifts != null and employee.shifts[day] != null}" th:text="${employee.shifts[day].start + ' - ' + employee.shifts[day].end}"></span>
+					 <span th:if="${employee.shifts == null or employee.shifts[day] == null}">-</span> 
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<form th:action="@{/menu}" th:object="${employee}" method="post">
+		<input type="submit" value="戻る" />
+	</form>
+</body>
+
+</html>
