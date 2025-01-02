@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.shift.support.entity.Department;
+import com.shift.support.entity.Employee;
 import com.shift.support.entity.Role;
 import com.shift.support.entity.Store;
 import com.shift.support.form.employee.StoreForm;
@@ -38,10 +39,20 @@ public class EmployeeController {
 	public StoreForm setCreateForm() {
 		return new StoreForm();
 	}
+	
+	@GetMapping("employee")
+	public String index(Model model) {
+		
+		List<Employee> employees = employeeMapper.getAllWithRoleAndDepartmentAndStore();
+		
+		model.addAttribute("employees", employees);
+		
+		return "employee/index";
+	}
 
 //	従業員登録画面表示
 	@GetMapping("employee/create")
-	public String Create(Model model) {
+	public String create(Model model) {
 		
 //		役職一覧取得
 		List<Role> roles = roleMapper.getAll();
@@ -131,7 +142,7 @@ public class EmployeeController {
 					);
 			
 			
-			return "redirect:/employee/create";
+			return "redirect:/employee";
 		}catch(Exception e) {
 			return "index";
 		}

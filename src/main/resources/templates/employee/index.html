@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout}">
+<head>
+<meta charset="UTF-8">
+<title>シフト表管理アプリ|人事一覧画面</title>
+<body>
+	<div layout:fragment="content">
+		<h2>人事情報画面</h2>
+		<a th:href="@{/employee/create}">人事情報登録</a>
+		<table border="1">
+			<tr>			
+				<th>氏名</th>
+				<th>役職</th>
+				<th>部門</th>
+				<th>店舗</th>
+				<th>希望勤務日数/週</th>
+				<th>希望勤務時間/日</th>
+			</tr>
+			<tr th:each="employee : ${employees}">
+				<td th:text="${employee.firstName} + ${employee.lastName}"></td>
+				<td th:text="${employee.role.name}"></td>
+				<td th:text="${employee.department.name}"></td>
+				<td th:text="${employee.store.name}"></td>
+				<td th:text="${employee.workPerWeek}"></td>
+				<td th:text="${employee.workPerDay}"></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

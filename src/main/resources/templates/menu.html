@@ -8,7 +8,7 @@
 	<h1>メニュー</h1>
 	<p th:text="${'ユーザー：'+employee+ employee.firstName + employee.lastName}"></p>
 	<ul>
-		<li><a>人事情報</a></li>
+		<li><a th:href="@{/employee}">人事情報</a></li>
 		<li><a>シフト編集</a></li>
 		<li><a>シフト表示</a></li>
 		<li><a>シフト申請</a></li>

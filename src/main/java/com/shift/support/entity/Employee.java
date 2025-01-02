@@ -17,4 +17,14 @@ public class Employee {
 	private int workPerWeek;
 	private int workPerDay;
 	private Date deleteAt; 
+	
+//	役職テーブルとのリレーション
+	private Role role;
+	
+//	部門テーブルとのリレーション
+	private Department department;
+	
+//	店舗テーブルとのリレーション
+	private Store store;
+	
 }
