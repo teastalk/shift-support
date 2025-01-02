@@ -49,9 +49,9 @@ CREATE TABLE t_shifts (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     employee_code VARCHAR NOT NULL,
     department_id INTEGER NOT NULL,
-    "date" DATE NOT NULL,
-    "start" TIME NOT NULL,
-    "end" TIME NOT NULL,
+    shift_date DATE NOT NULL,
+    shift_start TIME NOT NULL,
+    shift_end TIME NOT NULL,
     FOREIGN KEY (employee_code) REFERENCES m_employees (employee_code),
     FOREIGN KEY (department_id) REFERENCES m_departments (id)
 );
@@ -60,7 +60,7 @@ CREATE TABLE t_dayoffs (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     employee_code VARCHAR NOT NULL,
     type_id INTEGER NOT NULL,
-    "date" DATE NOT NULL,
+    dayoff_date DATE NOT NULL,
     FOREIGN KEY (employee_code) REFERENCES m_employees (employee_code),
     FOREIGN KEY (type_id) REFERENCES m_dayoff_types (id)
 );

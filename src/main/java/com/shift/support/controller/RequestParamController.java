@@ -1,5 +1,7 @@
 package com.shift.support.controller;
 
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,11 +34,21 @@ public class RequestParamController {
 	public String showIndex() {
 		return "index";
 	}
+	@PostMapping("menu")
+	public String showMenu(Model model, HttpSession session) {
+		model.addAttribute("employee", session.getAttribute("employee"));
+		// ログイン失敗
+		if(model.getAttribute("employee") == null) {
+			return "index";
+		}
+		
+		return "menu";
+	}
 	
 	
 	@PostMapping("login")
 	public String showLogin(@Validated LoginForm form,
-			BindingResult bindingResult, Model model) {
+			BindingResult bindingResult, Model model, HttpSession session) {
 		if (bindingResult.hasErrors()) {
 			//入力チェックNG
 			return "index";
@@ -55,8 +67,10 @@ public class RequestParamController {
 		
 		
 		model.addAttribute("employee",loginUser);
-		
+		session.setAttribute("employee", loginUser);
 		return "menu";
 	}
+	
+	
 	
 }

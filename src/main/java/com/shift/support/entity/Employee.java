@@ -1,6 +1,7 @@
 package com.shift.support.entity;
 
 import java.util.Date;
+import java.util.Map;
 
 import lombok.Data;
 
@@ -27,4 +28,5 @@ public class Employee {
 //	店舗テーブルとのリレーション
 	private Store store;
 	
+	private Map<String, Shift> shifts;
 }

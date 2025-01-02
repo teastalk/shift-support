@@ -27,3 +27,13 @@ INSERT INTO m_stores (store_code, name, open,close) VALUES('396', '蟹江', '07:
 --従業員
 INSERT INTO m_employees (employee_code, role_id, store_code, department_id, first_name, last_name, date_of_birth,password, work_per_week, work_per_day)
 VALUES ('24010101', 1, '396', 1, '三島', '慧吾', '19911129','19911129', 5, 8);
+
+INSERT INTO m_employees (employee_code, role_id, store_code, department_id, first_name, last_name, date_of_birth,password, work_per_week, work_per_day)
+VALUES ('24020101', 1, '396', 1, '上野', '裕太', '19911129','19911129', 5, 8);
+
+INSERT INTO m_employees (employee_code, role_id, store_code, department_id, first_name, last_name, date_of_birth,password, work_per_week, work_per_day)
+VALUES ('24030101', 1, '396', 1, '守山', '光', '19911129','19911129', 5, 8);
+
+--シフト情報
+INSERT INTO t_shifts (employee_code ,department_id ,shift_date ,shift_start ,shift_end)
+VALUES('24010101', 1, '2024-01-31', '07:00:00', '16:00:00');

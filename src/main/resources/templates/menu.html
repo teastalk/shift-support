@@ -10,7 +10,10 @@
 	<ul>
 		<li><a th:href="@{/employee}">人事情報</a></li>
 		<li><a>シフト編集</a></li>
-		<li><a>シフト表示</a></li>
+		<li><form th:action="@{/shift/view}" method="post" th:object="${employee}">
+					<input type="submit" value="シフト表示">
+				
+			</form></li>
 		<li><a>シフト申請</a></li>
 	</ul>
 </body>
