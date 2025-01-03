@@ -59,7 +59,7 @@ public class ShiftService {
 				List<LocalDate> created = new ArrayList<>();
 				int remain = employee.getWorkPerWeek();
 				boolean changed = true;
-				while (changed) {
+				while (remain > 0 && changed) {
 					changed = false;
 					List<LocalDate> dateOptions = new ArrayList<>();
 					int minEmployeeCount = Integer.MAX_VALUE;
