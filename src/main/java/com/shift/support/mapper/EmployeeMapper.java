@@ -50,7 +50,9 @@ public interface EmployeeMapper {
 		@Result(property = "workPerDay" , column = "work_per_day"),
 	})
 	List<Employee> getAllWithRoleAndDepartmentAndStore();
-	
+
+	@Select("SELECT * FROM m_employees WHERE store_code = #{storeCode}")
+	List<Employee> getByStoreCode(String storeCode);
 	
 	//登録
 	@Insert
